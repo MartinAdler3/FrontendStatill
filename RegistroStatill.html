@@ -11,7 +11,7 @@
     <h2>Nombre</h2>
     <input type="text" name="" id="RegisterNameText">
     <h2>Logo</h2>
-    <img src="https://www.pngplay.com/wp-content/uploads/9/KFC-Logo-PNG-Free-File-Download.png" id="kfclogo">
+    <img src="https://www.pngplay.com/wp-content/uploads/9/KFC-Logo-PNG-Free-File-Download.png" onclick="ChangeFile('InicioSesionStatill.html')"id="kfclogo">
     <h2>Descripción</h2>
     <input type="text" name="" id="DescriptionText">
     <button id="SiguienteButton"></button>
@@ -29,3 +29,8 @@
     
 }
 </style>
+<script>
+        function ChangeFile(archivo){
+        window.location.href = archivo;
+    }
+</script>
