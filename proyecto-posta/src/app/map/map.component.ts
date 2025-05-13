@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { MapService } from './map.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-map',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
@@ -30,40 +34,25 @@ export class MapComponent implements OnInit {
   constructor(private mapService: MapService) {}
 
   ngOnInit(): void {
-    this.initMap();
-  }
-
-  initMap(): void {
     this.map = L.map('map').setView([-34.5358, -58.4840], 13);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a>'
-    }).addTo(this.map);
-
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
     this.map.on('zoomend', () => {
       this.zoomLevel = this.map.getZoom();
     });
-
-    L.marker([-34.5358, -58.4840], { icon: this.iconHome })
-      .addTo(this.map)
-      .bindPopup('<b>holichuwis</b><br><img src="https://cdn.motor1.com/images/mgl/gmrEE/s1/lanzamiento-foton-view-cs2.jpg" width="200">')
-      .openPopup();
   }
 
   buscarDireccion(): void {
     if (!this.address.trim()) return;
-
     this.mapService.geocode(this.address).subscribe(data => {
       if (data.length > 0) {
         const lat = parseFloat(data[0].lat);
         const lon = parseFloat(data[0].lon);
         const descripcion = data[0].display_name;
         const icon = this.estado ? this.iconMarket : this.iconHome;
-
         this.map.setView([lat, lon], 13);
         L.marker([lat, lon], { icon }).addTo(this.map).bindPopup(descripcion).openPopup();
       } else {
-        alert('No se encontró la dirección. Intenta otra vez.');
+        alert('No se encontró la dirección.');
       }
     });
   }
