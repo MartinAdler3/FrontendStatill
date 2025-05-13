@@ -35,10 +35,19 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.map = L.map('map').setView([-34.5358, -58.4840], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(this.map);
+
     this.map.on('zoomend', () => {
       this.zoomLevel = this.map.getZoom();
     });
+
+    // Redibuja correctamente después de render
+    setTimeout(() => {
+      this.map.invalidateSize();
+    }, 0);
   }
 
   buscarDireccion(): void {

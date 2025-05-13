@@ -1,12 +1,11 @@
 <div id="searchForm">
   <label for="addressInput">Metele tipo un lugar:</label>
-  <input id="addressInput" [(ngModel)]="address" />
+  <input type="text" id="addressInput" [(ngModel)]="address">
   <button (click)="buscarDireccion()">Buscar Dirección</button>
-  <br />
-  <label for="estadoCheckbox">¿Es un mercado?</label>
-  <input type="checkbox" id="estadoCheckbox" [(ngModel)]="estado" />
+  <label for="estadoCheckbox"><br>¿Es un mercado?</label>
+  <input type="checkbox" id="estadoCheckbox" [(ngModel)]="estado">
 </div>
 
-<p>Estado: {{ estado }}</p>
 <p>Zoom: {{ zoomLevel }}</p>
+
 <div id="map"></div>

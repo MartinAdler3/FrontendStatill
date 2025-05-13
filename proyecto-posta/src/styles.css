@@ -1,3 +1,7 @@
+/* Importamos directamente desde node_modules */
+@import "leaflet/dist/leaflet.css";
+
+
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
