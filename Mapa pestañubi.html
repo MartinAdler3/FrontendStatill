@@ -4,34 +4,95 @@
   <title>Mapa con OpenStreetMap</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <button onclick="ChangeFile()" id="RegistroStatill"></button>
-
+  
   <!-- CSS de Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
   <!-- Script de Leaflet -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-   <style>
-        #RegistroStatill{
-            background-image: url('images.png');
-            width: 225px;
-            height: 225px;
-            border: none;
-        }
-    </style>
+
   <style>    
-    #searhForm{
-      position: absolute; top: 10px; left: 10px; z-index: 1000; background: rgba(255, 255, 255, 0.7); padding: 10px; border-radius: 5px;
+    #searhForm {
+      position: absolute; 
+      top: 10px; 
+      left: 10px; 
+      z-index: 1000; 
+      background: rgba(255, 255, 255, 0.7); 
+      padding: 10px; 
+      border-radius: 5px;
     }
 
-    #map{
+    #map {
       height: 100vh; /* Altura del mapa: 100% del alto de la ventana */
       margin: 5%;
       border-radius: 1%;
     }
+
+    /* Estilo de los botones */
+    .button-container {
+      position: absolute;
+      top: 20px;
+      right: 10px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .button-container div {
+      margin: 10px;
+      text-align: center;
+    }
+
+    button {
+      font-family: 'Arial', sans-serif;
+      color: white;
+      background-color: #4CAF50; /* Color de fondo */
+      border: none;
+      border-radius: 12px;
+      padding: 15px 32px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    button:hover {
+      background-color: #45a049; /* Color más oscuro */
+      transform: scale(1.05);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    /* Estilo de los nombres de los botones */
+    .button-container label {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
   </style>
 </head>
 <body>
+
+<!-- Contenedor de los botones -->
+<div class="button-container">
+  <div>
+    <label for="RegistroStatill">Redirección a Registro</label>
+    <button onclick="ChangeFile('RegistroStatill.html')" id="RegistroStatill">Ir a Registro</button>
+  </div>
+  <div>
+    <label for="InicioSesionStatill">Redirección a Inicio de Sesión</label>
+    <button onclick="ChangeFile('InicioSesionStatill.html')" id="InicioSesionStatill">Ir a Inicio de Sesión</button>
+  </div>
+  <div>
+    <label for="MenuPrincipal">Redirección al Menú Principal</label>
+    <button onclick="ChangeFile('MenuPrincipal.html')" id="MenuPrincipal">Ir al Menú Principal</button>
+  </div>
+</div>
 
 <div id="searchForm">
   <label for="addressInput">metele tipo un lugar:</label>
@@ -48,43 +109,39 @@
   // Inicializar el mapa y establecer la vista a una latitud y longitud específica
   const map = L.map('map').setView([-34.53581342361595, -58.48402975581814], 13); // Ciudad de México como ejemplo
 
-map.on('zoomend', function () {
-  const currentZoom = map.getZoom();
-  document.getElementById('cantZoom').innerText = 'Zoom: ' + currentZoom;
-});
+  map.on('zoomend', function () {
+    const currentZoom = map.getZoom();
+    document.getElementById('cantZoom').innerText = 'Zoom: ' + currentZoom;
+  });
 
   const iconoHome = L.icon({
-  iconUrl: 'home-marker.png', // URL del icono
-  iconSize: [37.5, 62.5],     // Tamaño del icono
-  iconAnchor: [62.5/2, 62.5],   // Punto del icono que se alinea con la posición del marcador
-  popupAnchor: [0, -62.5]   // Punto desde donde se abre el popup en relación al icono
-});
+    iconUrl: 'home-marker.png', 
+    iconSize: [37.5, 62.5],
+    iconAnchor: [62.5 / 2, 62.5],
+    popupAnchor: [0, -62.5]
+  });
 
-const iconoMarket = L.icon({
-  iconUrl: 'market-marker.png', // URL del icono
-  iconSize: [37.5, 62.5],     // Tamaño del icono
-  iconAnchor: [62.5/2, 62.5],   // Punto del icono que se alinea con la posición del marcador
-  popupAnchor: [0, -62.5]   // Punto desde donde se abre el popup en relación al icono
-});
+  const iconoMarket = L.icon({
+    iconUrl: 'market-marker.png',
+    iconSize: [37.5, 62.5],
+    iconAnchor: [62.5 / 2, 62.5],
+    popupAnchor: [0, -62.5]
+  });
 
-  // Cargar y mostrar los tiles de OpenStreetMap
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-}).addTo(map);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
 
-  // Puedes agregar un marcador si lo deseas
   L.marker([19.4326, -99.1332]).addTo(map)
     .bindPopup('¡Hola desde la CDMX!')
     .openPopup();
 
-  // Puedes agregar un marcador si lo deseas
   L.marker([-34.53581342361595, -58.48402975581814], { icon: iconoHome }).addTo(map)
     .bindPopup('<b>holichuwis</b><br><img src="https://cdn.motor1.com/images/mgl/gmrEE/s1/lanzamiento-foton-view-cs2.jpg" width="200">')
     .openPopup();
 
-    map.setView([0, 0], 3);
-    
-    function addMarker(latitude, longitude, descripcion, icono) {
-    L.marker([latitude, longitude], { icon: icono}).addTo(map)
+  map.setView([0, 0], 3);
+
+  function addMarker(latitude, longitude, descripcion, icono) {
+    L.marker([latitude, longitude], { icon: icono }).addTo(map)
       .bindPopup(descripcion)
       .openPopup();
   }
@@ -93,27 +150,27 @@ const iconoMarket = L.icon({
     const check = document.getElementById("estadoCheckbox").checked;
     document.getElementById("estadoTexto").innerText = "Estado: " + check;
   }
-  function ChangeFile() {
-            window.location.href = "RegistroStatill.html"; // Cambia "nueva_pagina.html" por la URL a la que quieres redirigir
-        }
+
+  function ChangeFile(page) {
+    window.location.href = page; // Redirige a la página que se pase como argumento
+  }
 
   function geocodeAddress() {
-    const address = document.getElementById('addressInput').value;  // Obtener la dirección desde el input
+    const address = document.getElementById('addressInput').value;
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&addressdetails=1`;
 
     fetch(url)
       .then(response => response.json())
       .then(data => {
         if (data.length > 0) {
-          const lat = parseFloat(data[0].lat);  // Latitud de la respuesta
-          const lon = parseFloat(data[0].lon);  // Longitud de la respuesta
+          const lat = parseFloat(data[0].lat);
+          const lon = parseFloat(data[0].lon);
           const description = data[0].display_name;
           const check = document.getElementById("estadoCheckbox").checked;
           const iconito = check ? iconoMarket : iconoHome;
 
-          // Agregar marcador con la dirección geocodificada
-          map.setView([lat, lon], 13);  // Centrar el mapa en las nuevas coordenadas
-          addMarker(lat, lon, description, iconito);  // Mostrar el marcador con la descripción
+          map.setView([lat, lon], 13);
+          addMarker(lat, lon, description, iconito);
         } else {
           alert('No se encontró la dirección. Intenta otra vez.');
         }
