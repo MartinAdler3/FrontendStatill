@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,16 +12,15 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username = '';
-  password = '';
-  error = false;
+  username: string = '';
+  password: string = '';
+  error: boolean = false;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    this.error = false;
-    if (this.auth.login(this.username, this.password)) {
-      this.router.navigate(['/map']);
+    if (this.authService.login(this.username, this.password)) {
+      this.router.navigate(['/']); // redirige al HomeComponent
     } else {
       this.error = true;
     }

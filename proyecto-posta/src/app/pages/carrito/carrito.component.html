@@ -1,0 +1,10 @@
+<app-header></app-header>
+<h2>Tu carrito</h2>
+<div *ngFor="let p of carrito">
+  <h4>{{ p.nombre }}</h4>
+  <p>${{ p.precio }}</p>
+</div>
+<hr>
+<p><strong>Total:</strong> ${{ total }}</p>
+<button (click)="comprar()">Finalizar compra</button>
+
