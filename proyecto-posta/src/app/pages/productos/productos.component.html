@@ -1,1 +1,9 @@
-<p>productos works!</p>
+<app-header></app-header>
+
+<h2 style="text-align:center; margin-top:2rem;">Catálogo</h2>
+
+<div *ngFor="let p of productos" style="border:1px solid #ccc; border-radius:8px; padding:1rem; margin:1rem auto; max-width:400px;">
+  <h3>{{ p.nombre }}</h3>
+  <p><strong>${{ p.precio }}</strong></p>
+  <button (click)="agregar(p)">Agregar al carrito</button>
+</div>

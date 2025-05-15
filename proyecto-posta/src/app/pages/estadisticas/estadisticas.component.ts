@@ -1,34 +1,44 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, inject } from '@angular/core';
+import { Chart } from 'chart.js/auto';
 import { CommonModule } from '@angular/common';
-import { Chart, registerables } from 'chart.js';
-
-Chart.register(...registerables);
+import { HeaderComponent } from 'src/app/shared/header/header.component';
 
 @Component({
   selector: 'app-estadisticas',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderComponent],
   templateUrl: './estadisticas.component.html',
   styleUrls: ['./estadisticas.component.css']
 })
 export class EstadisticasComponent implements AfterViewInit {
-
   ngAfterViewInit(): void {
+    // Datos simulados: nombre de producto y cantidad vendida
+    const datos = [
+      { nombre: 'Yerba Mate', cantidad: 25 },
+      { nombre: 'Fideos', cantidad: 18 },
+      { nombre: 'Salsa', cantidad: 12 }
+    ];
+
     new Chart('graficoVentas', {
       type: 'bar',
       data: {
-        labels: ['Pizza', 'Empanadas', 'Hamburguesas'],
+        labels: datos.map(d => d.nombre),
         datasets: [{
-          label: 'Ventas semanales',
-          data: [12, 19, 7],
-          backgroundColor: ['#ff2a2a', '#ff5151', '#ff7979']
+          label: 'Unidades vendidas',
+          data: datos.map(d => d.cantidad),
+          borderWidth: 1
         }]
       },
       options: {
         responsive: true,
         plugins: {
-          legend: { display: true },
-          title: { display: true, text: 'Estadísticas de consumo' }
+          legend: { display: false }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { stepSize: 5 }
+          }
         }
       }
     });

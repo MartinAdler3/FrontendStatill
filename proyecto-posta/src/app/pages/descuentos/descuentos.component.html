@@ -1,0 +1,10 @@
+<app-header></app-header>
+
+<h2 style="text-align:center; margin-top:2rem;">Ofertas del día 🔥</h2>
+
+<div *ngFor="let p of productos" style="max-width:400px; margin:1rem auto; border:1px solid #ccc; padding:1rem; border-radius:8px;">
+  <h3>{{ p.nombre }}</h3>
+  <p style="text-decoration: line-through; color: #999;">${{ p.precioOriginal }}</p>
+  <p><strong>Descuento: {{ p.descuento }}%</strong></p>
+  <p style="font-size: 1.2rem; color: #ff2a2a;"><strong>Ahora: ${{ getPrecioFinal(p) | number:'1.0-0' }}</strong></p>
+</div>

@@ -1,0 +1,15 @@
+<app-header></app-header>
+
+<h2 style="text-align:center; margin-top:2rem;">Tu Programa de Puntos 🎁</h2>
+
+<div style="max-width:400px; margin:2rem auto; text-align:center;">
+  <p><strong>Puntos acumulados:</strong> {{ puntosAcumulados }} / {{ objetivo }}</p>
+
+  <div style="background:#ddd; border-radius:10px; overflow:hidden; height:25px;">
+    <div [style.width.%]="progreso" style="background:#28a745; height:100%;"></div>
+  </div>
+
+  <p style="margin-top:1rem;">Te faltan <strong>{{ faltan }}</strong> puntos para desbloquear tu próximo premio.</p>
+
+  <button style="margin-top:1rem;" [disabled]="faltan > 0">Canjear Premio</button>
+</div>

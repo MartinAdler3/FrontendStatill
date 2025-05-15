@@ -1,0 +1,19 @@
+<app-header></app-header>
+
+<h2 style="text-align:center; margin-top:2rem;">Reseñas de locales 📝</h2>
+
+<div style="max-width:400px; margin:1rem auto;">
+  <input [(ngModel)]="nombre" placeholder="Tu nombre" />
+  <select [(ngModel)]="estrellas">
+    <option *ngFor="let n of [1,2,3,4,5]" [value]="n">{{ n }} ⭐</option>
+  </select>
+  <textarea [(ngModel)]="comentario" rows="3" placeholder="Comentario"></textarea>
+  <button (click)="enviar()">Enviar reseña</button>
+</div>
+
+<hr />
+
+<div *ngFor="let r of reseñas" style="max-width:400px; margin:1rem auto; border:1px solid #ccc; padding:1rem; border-radius:8px;">
+  <p><strong>{{ r.nombre }}</strong> - {{ r.estrellas }} ⭐</p>
+  <p>{{ r.comentario }}</p>
+</div>

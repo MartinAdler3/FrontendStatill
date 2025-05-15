@@ -1,0 +1,17 @@
+<app-header></app-header>
+
+<h2 style="text-align:center; margin-top:2rem;">Mi Perfil 🙋</h2>
+
+<div style="max-width:400px; margin:2rem auto; border:1px solid #ccc; padding:1rem; border-radius:10px;">
+  <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
+  <p><strong>Email:</strong> {{ usuario.email }}</p>
+  <p><strong>Puntos acumulados:</strong> {{ usuario.puntos }}</p>
+</div>
+
+<h3 style="text-align:center; margin-top:2rem;">Pre-órdenes</h3>
+
+<div *ngFor="let p of preordenes" style="max-width:400px; margin:1rem auto; border:1px solid #ddd; padding:1rem; border-radius:8px;">
+  <p><strong>Producto:</strong> {{ p.producto }}</p>
+  <p><strong>Estado:</strong> {{ p.estado }}</p>
+  <p><strong>Fecha:</strong> {{ p.fecha }}</p>
+</div>

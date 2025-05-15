@@ -1,10 +1,18 @@
 <header class="header">
-  <img src="assets/logo.png" alt="Statill Logo" class="logo">
-  <nav>
+  <img src="assets/logo.png" alt="Statill Logo" class="logo" />
+
+  <nav *ngIf="auth.isLoggedIn(); else guestLinks">
     <a routerLink="/">Inicio</a>
     <a routerLink="/productos">Productos</a>
     <a routerLink="/carrito">Carrito</a>
     <a routerLink="/mapa">Mapa</a>
-    <a routerLink="/login">Cerrar sesión</a>
+    <a (click)="logout()">Cerrar sesión</a>
   </nav>
+
+  <ng-template #guestLinks>
+    <nav>
+      <a routerLink="/">Inicio</a>
+      <a routerLink="/login">Login</a>
+    </nav>
+  </ng-template>
 </header>
